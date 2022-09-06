@@ -1,0 +1,111 @@
+<div class="container" x-data="{ rightSide: false, leftSide: false }">
+    <div class="left-side" :class="{'active' : leftSide}">
+        <div class="ticherLogo">
+            <img src="{{ticher.avatar}}" id="avatar" alt="">
+            <span>{{ticher.login}}</span>
+        </div>
+
+        <div class="side-wrapper">
+            <div class="side-title" style="text-align: center;">Filter</div>
+            <div class="side-title">mutahasislar</div>
+            <div class="side-title">
+                <select id="yonalish">
+                    <option value="all">hammasi</option>
+                    {{#each mutahasislar}}
+                    <option value="{{name}}">{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="side-title">kurslari</div>
+            <div class="side-title">
+                <select id="coursiBoyicha">
+                    <option value="all">hammasi</option>
+                </select>
+            </div>
+            <div class="side-title">o'qvchilar</div>
+            <div class="side-title">
+                <select class="tolovBoyicha">
+                    <option value="all">hammasi</option>
+                    <option value="true">tolov qilingan</option>
+                    <option value="false">tolov qilinmagan</option>
+                </select>
+            </div>
+
+            <div class="side-title" style="text-align: center;">Boshqa amallar</div>
+            <button class="btnSendMessage">Xabar yuborish</button>
+            
+            <br>
+            <br>
+            <button class="reset">reset data</button>
+        </div>
+
+    </div>
+    <div class="main">
+        <div style="width: 100%; height:100% ; display:flex;align-items:center; justify-content:center">
+
+            <span>Biron o'quvchini tanlang</span>
+        </div>
+    </div>
+    <div class="right-side" :class="{ 'active': rightSide }">
+        <div class="account">
+            chiqish
+            <button class="account-button">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                    <title>Log Out</title>
+                    <path
+                        d="M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256"
+                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="32" />
+                </svg>
+            </button>
+
+        </div>
+
+        <div class="side-wrapper contacts">
+            <div class="side-title">o'quvchilar</div>
+            <div>
+                <main>yangi oqucvchi</main>
+                <br>
+                {{#if students_notAcc}}
+                {{#each students_notAcc}}
+                <div class="user" id="{{_id}}">
+                    <img src="{{avatar}}" class="user-img">
+                    <div class="username">{{name}} {{fristName}}
+                        <div class="user-status idle"></div>
+                    </div>
+                </div>
+                {{/each}}
+                {{else}}
+                <main>yangi oquvchi yoq</main>
+                {{/if}}
+            </div>
+
+            <br>
+            <main>royhatdan otilgan o'quvchilar</main>
+            <br>
+            <div class="royhatdanOtgan">
+                {{#if students_acc}}
+                {{#each students_acc}}
+                <div class="user" id="{{_id}}">
+                    <img src="{{avatar}}" class="user-img">
+                    <div class="username">{{name}} {{fristName}}
+                        {{#if oylik}}
+                        <div class="user-status"></div>
+                        {{else}}
+                        <div class="user-status idle"></div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+
+        </div>
+
+    </div>
+    <div class="overlay" @click="rightSide = false; leftSide = false" :class="{ 'active': rightSide || leftSide }">
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script src="{{URL}}js/menejer.js"></script>

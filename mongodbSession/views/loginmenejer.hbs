@@ -1,0 +1,61 @@
+<div class="login-box">
+    <h2>Login</h2>
+    <form>
+        <div class="user-box">
+            <input type="text" name="" required="">
+            <label>Menejer name</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="" required="">
+            <label>Password</label>
+        </div>
+        <a href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Submit
+        </a>
+    </form>
+</div>
+
+<script>
+    const form = document.querySelector("form")
+    const btn = document.querySelector("a")
+    const inputs = document.querySelectorAll("input")
+    const labels = document.querySelectorAll("label")
+    btn.addEventListener("click", (e) => {
+        e.preventDefault()
+        if (inputs[0].value != '') {
+            if (inputs[1].value != '') {
+                fetch(window.location.href, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        login: inputs[0].value,
+                        password: inputs[1].value
+                    }),
+                    headers:{
+                        "Content-type":"application/json"
+                    }
+                }).then(data=>data.json())
+                .then(result=>{
+                    console.log(result)
+                    if(result.status == "ok") location.reload()
+                })
+            }else{
+            labels[1].style.color = "red"
+            }
+        }else{
+            labels[0].style.color = "red"
+        }
+    })
+
+
+    inputs.forEach((item , i)=>{
+        item.addEventListener("keydown" , ()=>{
+            if(labels[i].style.color == "red"){
+                labels[i].style.color = '#03e9f4'
+            }
+        })
+    })
+</script>
